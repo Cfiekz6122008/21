@@ -44,6 +44,9 @@ class Tank:
         self.__water_speed=speed/2
         self.__create()
         self.right()
+        self.__hp_bar = self.__canvas.create_rectangle(self.__x, self.__y - 10,
+                                                       self.__x + self.get_size(), self.__y - 5,
+                                                       fill="green", outline="black")
 
     def __set_usual_speed(self):
         self.__speed=self.__usual_speed
@@ -125,9 +128,20 @@ class Tank:
                                                image = skin.get('tank_up'),
                                                anchor ='nw')
 
-    def __repaint(self):
-        self.__canvas.moveto(self.__id, x = world.get_screen_x(self.__x),
-                             y =world.get_screen_y(self.__y))
+    def _repaint(self):
+        screen_x = world.get_screen_x(self._x)
+        screen_y = world.get_screen_y(self._y)
+
+        # Обновляем координаты танка
+        self._canvas.moveto(self._id, x=screen_x, y=screen_y)
+
+        # Обновляем координаты HP-бара
+        if self._hp_bar:
+            self._canvas.coords(
+                self._hp_bar,
+                screen_x, screen_y - 5,  # Чётко над танком
+                          screen_x + (world.BLOCK_SIZE * max(0, self._hp / 100)), screen_y - 2
+            )
 
     def __update_hitbox(self):
         self.__hitbox.moveto(self.__x, self.__y)

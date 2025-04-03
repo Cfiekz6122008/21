@@ -37,10 +37,14 @@ class Unit:
                 #fill='green', outline='black')
     def _create(self):
         self._id = self._canvas.create_image(self._x, self._y, image=skin.get(self._default_image), anchor=NW)
-        if isinstance(self, Tank):
+
+        if isinstance(self, Tank):  # Только для танков создаём HP-бар
+            screen_x = world.get_screen_x(self._x)
+            screen_y = world.get_screen_y(self._y)
+
             self._hp_bar = self._canvas.create_rectangle(
-                self._x + 30, self._y + world.BLOCK_SIZE - 40,
-                self._x + world.BLOCK_SIZE - 40, self._y + world.BLOCK_SIZE - 30,
+                screen_x, screen_y - 5,  # Над танком
+                          screen_x + world.BLOCK_SIZE, screen_y - 2,  # Ширина = ширина танка
                 fill='green', outline='black')
 
     #def _update_hp_bar(self):
@@ -50,12 +54,21 @@ class Unit:
             #self._canvas.itemconfig(self._hp_bar, fill='red' if self._hp < 50 else 'green')
     def _update_hp_bar(self):
         if isinstance(self, Tank) and self._hp_bar:
-            width = max(1, (self._hp / 100) * (world.BLOCK_SIZE - 10))
-            self._canvas.coords(self._hp_bar,
-                                self._x + 30, self._y + world.BLOCK_SIZE - 40,
+            hp_percentage = max(0, self._hp / 100)  # Процент HP
+            bar_width = world.BLOCK_SIZE * hp_percentage  # Ширина HP-бара
 
-                                self._x + 40 + width, self._y + world.BLOCK_SIZE - 30)
-            self._canvas.itemconfig(self._hp_bar, fill='red' if self._hp < 33 else 'yellow' if self._hp < 66 else 'green')
+            screen_x = world.get_screen_x(self._x)
+            screen_y = world.get_screen_y(self._y)
+
+            self._canvas.coords(
+                self._hp_bar,
+                screen_x, screen_y - 5,  # Над танком
+                          screen_x + bar_width, screen_y - 2
+            )
+
+            # Меняем цвет в зависимости от HP
+            color = "green" if self._hp > 66 else "yellow" if self._hp > 33 else "red"
+            self._canvas.itemconfig(self._hp_bar, fill=color)
 
     def damage(self, value):
         self._hp -= value
