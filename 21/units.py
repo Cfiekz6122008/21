@@ -25,7 +25,7 @@ class Unit:
         self._forward_image = default_image
         self._backward_image = default_image
         self._canvas = canvas
-        self._id = None  # Добавлено: идентификатор объекта на холсте
+        self._id = None
         self._hp_bar = None
         self._create()
 
@@ -47,11 +47,7 @@ class Unit:
                           screen_x + world.BLOCK_SIZE, screen_y - 2,  # Ширина = ширина танка
                 fill='green', outline='black')
 
-    #def _update_hp_bar(self):
-        #if isinstance(self, Tank) and self._hp_bar:
-            #width = max(1, (self._hp / 100) * world.BLOCK_SIZE)
-            #self._canvas.coords(self._hp_bar, self._x, self._y - 10, self._x + width, self._y - 5)
-            #self._canvas.itemconfig(self._hp_bar, fill='red' if self._hp < 50 else 'green')
+
     def _update_hp_bar(self):
         if isinstance(self, Tank) and self._hp_bar:
             hp_percentage = max(0, self._hp / 100)  # Процент HP
@@ -62,7 +58,7 @@ class Unit:
 
             self._canvas.coords(
                 self._hp_bar,
-                screen_x, screen_y - 5,  # Над танком
+                screen_x, screen_y - 5,
                           screen_x + bar_width, screen_y - 2
             )
 
