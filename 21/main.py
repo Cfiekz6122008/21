@@ -1,6 +1,5 @@
 
 import missiles_collection
-from tank import Tank
 from tkinter import*
 import world
 import tanks_collection
@@ -23,9 +22,9 @@ KEY_E = 69
 def update():
     tanks_collection.update()#####
     missiles_collection.update()
-    player=tanks_collection.get_player()
-    world.set_camera_xy(player.get_x()-world.SCREEN_WIDTH//2+player.get_size()//2,
-                        player.get_y()-world.SCREEN_HEIGHT//2+player.get_size()//2)
+    player= tanks_collection.get_player()
+    world.set_camera_xy(player.get_x() - world.SCREEN_WIDTH // 2 + player.get_size() // 2,
+                        player.get_y() - world.SCREEN_HEIGHT // 2 + player.get_size() // 2)
     world.update_map()
     w.after(1000//FPS,update)
 
@@ -33,7 +32,7 @@ def update():
 
 
 def key_press(event):
-    player=tanks_collection.get_player()
+    player= tanks_collection.get_player()
 
     if player.is_destroyed():
         return
@@ -93,7 +92,7 @@ def load_textures():
     texture.load(world.CONCRETE, "../img/wall.png")
     texture.load(world.MISSLE, "../img/bonus.png")
 
-    texture.load('tank_lose','../img/tank_destroy.png')
+    texture.load('tank_lose', '../img/tank_destroy.png')
 
 w=Tk()
 load_textures()

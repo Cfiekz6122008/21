@@ -22,9 +22,9 @@ class Hitbox:
     def check_map_collision(self,details):
         collision = False
         for point in self.__get_corner_points():
-            row=world.get_row(point['y'])
-            col=world.get_col(point['x'])
-            block=world.get_block(row, col)
+            row= world.get_row(point['y'])
+            col= world.get_col(point['x'])
+            block= world.get_block(row, col)
             if block in self.__black_list:
                 details[block]={'row':row, 'col':col}
                 collision= True

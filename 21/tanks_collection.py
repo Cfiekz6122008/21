@@ -1,5 +1,4 @@
 from tkinter import NW
-import time
 from random import randint
 from missiles_collection import check_missiles_collision
 #from tank import Tank

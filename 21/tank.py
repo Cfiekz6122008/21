@@ -1,7 +1,6 @@
 # Картинки танков
 
 from hitbox import Hitbox
-from tkinter import *
 from random import randint
 import world
 import texture as skin
@@ -43,7 +42,6 @@ class Tank:
             self.__y = 0
         self.__usual_speed=speed
         self.__water_speed=speed/2
-
         self.__create()
         self.right()
 
@@ -70,7 +68,7 @@ class Tank:
             self.__set_water_speed()
         elif world.MISSLE in details:
             pos=details[world.MISSLE]
-            if world.take(pos['row'], pos['col'])!=world.AIR:
+            if world.take(pos['row'], pos['col'])!= world.AIR:
                 self.__take_ammo()
         else:
             self.__undo_move()
@@ -157,6 +155,8 @@ class Tank:
     def stop(self):
         self.__vx = 0
         self.__vy = 0
+
+
 
     def update(self):
         if self.__fuel >= self.__speed:

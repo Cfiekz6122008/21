@@ -18,7 +18,7 @@ class Unit:
         self._dy = 0
         self._speed = speed
         self._bot = bot
-        self._hitbox = Hitbox(x, y, world.BLOCK_SIZE, world.BLOCK_SIZE,padding=padding)
+        self._hitbox = Hitbox(x, y, world.BLOCK_SIZE, world.BLOCK_SIZE, padding=padding)
         self._default_image = default_image
         self._left_image = default_image
         self._right_image = default_image
@@ -174,8 +174,8 @@ class Unit:
         pass
 
     def _repaint(self):
-        screen_x=world.get_screen_x(self._x)
-        screen_y=world.get_screen_y(self._y)
+        screen_x= world.get_screen_x(self._x)
+        screen_y= world.get_screen_y(self._y)
         self._canvas.moveto(self._id, x=screen_x, y=screen_y)
 
     def _undo_move(self):
@@ -227,7 +227,7 @@ class Unit:
 
 class Tank(Unit):
     def __init__(self, canvas, row, col, bot=True):
-        super().__init__(canvas, col*world.BLOCK_SIZE, row*world.BLOCK_SIZE, 2, 8, bot, "tank_up")
+        super().__init__(canvas, col * world.BLOCK_SIZE, row * world.BLOCK_SIZE, 2, 8, bot, "tank_up")
         if bot:
             self._forward_image='tank_up'
             self._backward_image='tank_down'
@@ -322,8 +322,8 @@ class Tank(Unit):
         target_center_x=self._target.get_x() + self._target.get_size()//2
         target_center_y=self._target.get_y() + self._target.get_size()//2
 
-        row=world.get_row(center_y)
-        col=world.get_col(center_x)
+        row= world.get_row(center_y)
+        col= world.get_col(center_x)
 
         row_target = world.get_row(target_center_y)
         col_target = world.get_col(target_center_x)
