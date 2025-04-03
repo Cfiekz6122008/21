@@ -23,21 +23,17 @@ def initialize(canv):
     enemy=spawn(True).set_target(player)
     spawn(True).set_target(player)
 
-
-
-
     id_screen_text = _canvas.create_text(10,10,text=_get_screen_text(),font=('TkDefaultFont',20),fill='white',anchor=NW)
     return id_screen_text
 
 def _get_screen_text():
-    pass
-    #global remaining_tanks
-    #if remaining_tanks == 0:
-        #return 'Вы проиграли!'
-    #elif remaining_tanks == 1:
-        #return 'Вы победили!'
-   # else:
-        #return f'Осталось {remaining_tanks}'
+    global remaining_tanks
+    if get_player().is_destroyed():
+        return 'Вы проиграли!'
+    if len(_tanks) == 1:
+        return 'Вы победили!'
+    else:
+        return f'Осталось {len(_tanks) - 1}'
 
 
 def update_screen_text(canv, id_screen_text):
